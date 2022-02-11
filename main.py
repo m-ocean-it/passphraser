@@ -12,8 +12,7 @@ def to_passphrase(hex_str: str) -> str:
 
         binary_chunks.append(chunk)
 
-    integers = map(lambda x: int(x, 2),
-                   binary_chunks)
+    integers = [int(x, 2) for x in binary_chunks]
 
     with open('bip39.txt') as file:
         wordlist = [line.rstrip() for line in file]
