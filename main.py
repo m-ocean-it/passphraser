@@ -14,8 +14,7 @@ def to_passphrase(hex_str: str) -> str:
 
     integers = [int(x, 2) for x in binary_chunks]
 
-    with open('bip39.txt') as file:
-        wordlist = [line.rstrip() for line in file]
+    wordlist = get_wordlist()
 
     words = [wordlist[i] for i in integers]
 
@@ -27,8 +26,7 @@ def from_passphrase(passphrase: str):
 
     words = passphrase.split()
 
-    with open('bip39.txt') as file:
-        wordlist = [line.rstrip() for line in file]
+    wordlist = get_wordlist()
 
     integers = [wordlist.index(word)
                 for word in words]
@@ -40,6 +38,11 @@ def from_passphrase(passphrase: str):
     hex_str = binToHex(binary_str)
 
     return hex_str
+
+
+def get_wordlist():
+    with open('bip39.txt') as file:
+        return [line.rstrip() for line in file]
 
 
 def Binary(n):
