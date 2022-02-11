@@ -23,4 +23,39 @@ def to_passphrase(hex_str: str) -> str:
 
 
 def from_passphrase(passphrase: str):
-    pass
+    '''2'''
+
+    words = passphrase.split()
+
+    with open('bip39.txt') as file:
+        wordlist = [line.rstrip() for line in file]
+
+    integers = [wordlist.index(word)
+                for word in words]
+
+    binary_chunks = [Binary(i).rjust(11, '0') for i in integers]
+
+    binary_str = ''.join(binary_chunks)
+
+    hex_str = binToHex(binary_str)
+
+    return hex_str
+
+
+def Binary(n):
+    s = bin(n)
+
+    # removing "0b" prefix
+    s1 = s[2:]
+
+    return s1
+
+
+def binToHex(n):
+
+    # convert binary to int
+    num = int(n, 2)
+
+    # convert int to hexadecimal
+    hex_num = hex(num)
+    return(hex_num)
