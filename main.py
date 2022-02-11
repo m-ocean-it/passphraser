@@ -1,4 +1,4 @@
-def main(hex_str: str) -> str:
+def to_passphrase(hex_str: str) -> str:
     '''1'''
 
     binary_str = bin(int(hex_str, 16))
@@ -21,3 +21,7 @@ def main(hex_str: str) -> str:
     words = [wordlist[i] for i in integers]
 
     return ' '.join(words)
+
+
+def from_passphrase(passphrase: str):
+    pass
