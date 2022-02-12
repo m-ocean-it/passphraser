@@ -25,4 +25,5 @@ Currently, only the BIP-39 wordlist is supported.
 
 ### Later
 - [ ] Add options for wordlists: built-in and user-defined
+- [ ] Add CLI
 - [ ] Package for PyPI
