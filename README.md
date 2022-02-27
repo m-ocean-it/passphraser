@@ -29,14 +29,14 @@ Decoding the passphrase back to the original value is done in reverse.
 - [ ] Add input modes: "hex", "bin", "str". Currently only hex input is supported.
 - [ ] Add optional numbered output like this:
 ```
-19      across
-1624    slab
-218     brass
-139     bacon
+1.  19      across
+2.  1624    slab
+3.  218     brass
+4.  139     bacon
 ```
 
 ### Later
-- [ ] Add options for wordlists: built-in and user-defined
+- [ ] Allow user-defined wordlists
 - [ ] Add CLI
 - [ ] Package for PyPI
 - [ ] Compile to standalone executables
