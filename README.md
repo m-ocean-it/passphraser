@@ -2,6 +2,10 @@
 
 Convert any data to a passphrase and back.
 
+Unique features:
+- Several built-in wordlists and ability to define your own.
+- Accepting input of arbitrary length. No upper limit, no requirement for an even number of characters.
+
 ## Use cases
 
 - Make a long code more readable, communicable, and less error-prone by converting it to a passphrase.
