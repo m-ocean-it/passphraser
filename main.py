@@ -1,14 +1,11 @@
 def to_passphrase(hex_str: str) -> str:
     '''1'''
 
-    binary_str = bin(int(hex_str, 16))
+    binary_str = bin(int(hex_str, 16))[2:]
 
     binary_chunks = []
-    for i in range(2, len(binary_str), 11):
-        chunk = binary_str[i:i+11]
-
-        if len(chunk) < 11:
-            chunk = chunk.rjust(11, '0')
+    for i in range(0, len(binary_str), 11):
+        chunk = binary_str[i:i+11].rjust(11, '0')
 
         binary_chunks.append(chunk)
 
