@@ -61,4 +61,4 @@ def binToHex(n):
 
     # convert int to hexadecimal
     hex_num = hex(num)
-    return(hex_num)
+    return hex_num
