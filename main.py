@@ -28,11 +28,12 @@ def from_passphrase(passphrase: str):
     integers = [wordlist.index(word)
                 for word in words]
 
-    binary_chunks = [Binary(i).rjust(11, '0') for i in integers]
+    binary_chunks = [Binary(i) for i in integers]
 
     binary_str = ''.join(binary_chunks)
 
-    hex_str = binToHex(binary_str)
+    hex_num = binToHex(binary_str)
+    hex_str = str(hex_num)[2:]
 
     return hex_str
 
