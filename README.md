@@ -3,7 +3,7 @@
 Convert any data to a passphrase and back.
 
 Unique features:
-- Several built-in wordlists and ability to define your own.
+- Several built-in wordlists (and ability to define your own later).
 - Accepting input of arbitrary length. No upper limit, no requirement for an even number of characters.
 
 ## Use cases
