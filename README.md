@@ -11,7 +11,7 @@ Unique features:
 - Make a long code more readable, communicable, and less error-prone by converting it to a passphrase.
 
 ## How does it work?
-- Select a wordlist and calculate `k` — the required size of binary chunks.
+- Select a wordlist and calculate `k` — the required size of binary chunks. (Note: if the length of the list is not a power of 2, then some words won't be used.)
 - Input: `ab12` (hexadecimal).
 - Convert to binary: `1010101100010010`.
 - Chop to chunks of length `k`: `10101011000 10010`. (Here, `k=11`. The last chunk may be shorter due to insufficient binary places.)
