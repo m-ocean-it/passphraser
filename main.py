@@ -1,29 +1,40 @@
-def to_passphrase(hex_str: str) -> str:
-    '''1'''
+import os
+
+from utils import get_max_fitting_degree_of_two
+
+
+WORDLISTS_DIR = 'wordlists'
+
+
+def to_passphrase(
+        hex_str: str,
+        wordlist_option: str = 'BIP39') -> str:
 
     binary_str = bin(int(hex_str, 16))[2:]
 
+    wordlist = get_wordlist(wordlist_option)
+    chunk_size = get_max_fitting_degree_of_two(len(wordlist))
+
     binary_chunks = []
-    for i in range(0, len(binary_str), 11):
-        chunk = binary_str[i:i+11].rjust(11, '0')
+    for i in range(0, len(binary_str), chunk_size):
+        chunk = binary_str[i:i+chunk_size].rjust(chunk_size, '0')
 
         binary_chunks.append(chunk)
 
     integers = [int(x, 2) for x in binary_chunks]
-
-    wordlist = get_wordlist()
 
     words = [wordlist[i] for i in integers]
 
     return ' '.join(words)
 
 
-def from_passphrase(passphrase: str):
-    '''2'''
+def from_passphrase(
+        passphrase: str,
+        wordlist_option: str = 'BIP39') -> str:
 
     words = passphrase.split()
 
-    wordlist = get_wordlist()
+    wordlist = get_wordlist(wordlist_option)
 
     integers = [wordlist.index(word)
                 for word in words]
@@ -38,8 +49,9 @@ def from_passphrase(passphrase: str):
     return hex_str
 
 
-def get_wordlist():
-    with open('bip39.txt') as file:
+def get_wordlist(wordlist_option: str = 'BIP39'):
+    path = os.path.join(WORDLISTS_DIR, wordlist_option)
+    with open(path) as file:
         return [line.rstrip() for line in file]
 
 
