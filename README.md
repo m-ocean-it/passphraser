@@ -10,6 +10,11 @@ Unique features:
 
 - Make a long code more readable, communicable, and less error-prone by converting it to a passphrase.
 
+## Usage
+
+- [ ] Something must be here! :)
+
+
 ## How does it work?
 - Select a wordlist and calculate `k` — the required size of binary chunks. (Note: if the length of the list is not a power of 2, then some words won't be used.)
 - Input: `ab12` (hexadecimal).
