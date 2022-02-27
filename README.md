@@ -18,7 +18,7 @@ Unique features:
 - Pad the last chunk if needed: `10101011000 10010000000`. Chunks must be of same size.
 - Add helper-chunk to remember the amount of padding. Result: `10101011000 10010000000 [11111100000]`. (6 ones in the helper-chunk represent 6 zeroes added to the last chunk for padding.)
 - Convert each chunk to a decimal integer: `1368 1152 2016`.
-- Fetch corresponding words from the wordlist: `prison mosquito winter`.
+- Fetch corresponding words from the wordlist: `prison mosquito winter`. (The last word encodes the helper-chunk and, thus, stores information about padding.)
 
 Decoding the passphrase back to the original value is done in reverse.
 
