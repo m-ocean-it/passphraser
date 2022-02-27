@@ -1,3 +1,5 @@
+from termcolor import colored
+
 from main import from_passphrase, to_passphrase
 
 WORDLIST_OPTIONS = ('BIP39', 'EFF')
@@ -13,22 +15,21 @@ def test_for_symmetry():
     print('TESTING FOR SYMMETRY')
     print('====================', end='\n\n')
 
-    for wordlist_option in WORDLIST_OPTIONS:
-        print('Wordlist: ', wordlist_option)
-
+    for i, wordlist_option in enumerate(WORDLIST_OPTIONS):
+        print(f'TEST {i} ===>')
         passphrase = to_passphrase(data,
-                                   wordlist_option=wordlist_option)
-        print('Passphrase:', passphrase)
+                                   wordlist_option=wordlist_option,
+                                   verbose=True)
 
         recovered = from_passphrase(passphrase,
-                                    wordlist_option=wordlist_option)
+                                    wordlist_option=wordlist_option,
+                                    verbose=True)
 
-        print('Recovered: ', recovered)
-        assert recovered == data, f'Should have recovered: {data}'
-        print('TEST PASSED')
-        print('===========', end='\n\n')
+        assert recovered == data, colored(
+            f'Should have recovered: {data}', 'red')
+        print(f'<=== TEST {i} PASSED', end='\n\n')
 
-    print('HOORRAY! SYMMETRY IS PRESERVED.')
+    print(colored('HOORRAY! SYMMETRY IS PRESERVED.', 'green'))
 
 
 if __name__ == '__main__':
