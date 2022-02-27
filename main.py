@@ -1,7 +1,9 @@
 import os
 from termcolor import colored
 
-from utils import (get_max_fitting_degree_of_two,
+from utils import (Binary,
+                   binToHex,
+                   get_max_fitting_degree_of_two,
                    amount_of_chars_in_beginning)
 
 
@@ -101,18 +103,3 @@ def get_wordlist(wordlist_option: str = 'BIP39'):
     path = os.path.join(WORDLISTS_DIR, wordlist_option)
     with open(path) as file:
         return [line.rstrip() for line in file]
-
-
-def Binary(n):
-    s = bin(n)
-    # removing "0b" prefix
-    s1 = s[2:]
-    return s1
-
-
-def binToHex(n):
-    # convert binary to int
-    num = int(n, 2)
-    # convert int to hexadecimal
-    hex_num = hex(num)
-    return hex_num
