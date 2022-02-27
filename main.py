@@ -8,7 +8,8 @@ WORDLISTS_DIR = 'wordlists'
 
 def to_passphrase(
         hex_str: str,
-        wordlist_option: str = 'BIP39') -> str:
+        wordlist_option: str = 'BIP39',
+        verbose=False) -> str:
 
     binary_str = bin(int(hex_str, 16))[2:]
     wordlist = get_wordlist(wordlist_option)
@@ -22,12 +23,16 @@ def to_passphrase(
     integers = [int(x, 2) for x in binary_chunks]
     words = [wordlist[i] for i in integers]
 
+    if verbose:
+        print(f'{hex_str} -> {binary_str} -> {binary_chunks} -> {integers} -> {words}')
+
     return ' '.join(words)
 
 
 def from_passphrase(
         passphrase: str,
-        wordlist_option: str = 'BIP39') -> str:
+        wordlist_option: str = 'BIP39',
+        verbose=False) -> str:
 
     words = passphrase.split()
     wordlist = get_wordlist(wordlist_option)
@@ -39,6 +44,9 @@ def from_passphrase(
 
     hex_num = binToHex(binary_str)
     hex_str = str(hex_num)[2:]
+
+    if verbose:
+        print(f'{passphrase} -> {words} -> {integers} -> {binary_chunks} -> {hex_str}')
 
     return hex_str
 
