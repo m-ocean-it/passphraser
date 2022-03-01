@@ -18,6 +18,8 @@ def to_passphrase(
 
     assert mode in ('ascii', 'hex')
 
+    input_str = input_str.strip()
+
     if mode == 'ascii':
         ascii_codes = tuple(ord(char) for char in input_str)
         bin_chunks = tuple(bin(code)[2:].rjust(8, '0')
