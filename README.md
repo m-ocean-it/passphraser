@@ -16,6 +16,9 @@ Unique features:
 
 
 ## How does it work?
+
+**OUTDATED**: *The algorithm works a bit differently now. Instead of converting the target hex value to binary, each hex character gets decoded into a 4-bit string and then those strings are concatenated. That solves the problem of possible zeroes in the front of the input hex value getting lost during the conversion to binary.*
+
 - Select a wordlist and calculate `k` — the required size of binary chunks. (Note: if the length of the list is not a power of 2, then some words won't be used.)
 - Input: `ab12` (hexadecimal).
 - Convert to binary: `1010101100010010`.
