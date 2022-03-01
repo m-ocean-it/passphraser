@@ -5,14 +5,6 @@ def Binary(n):
     return s1
 
 
-def binToHex(n):
-    # convert binary to int
-    num = int(n, 2)
-    # convert int to hexadecimal
-    hex_num = hex(num)
-    return hex_num
-
-
 def get_max_fitting_degree_of_two(n):
     assert n >= 2
     i = 1

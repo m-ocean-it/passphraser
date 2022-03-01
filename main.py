@@ -3,7 +3,6 @@ from termcolor import colored
 from typing import Tuple
 
 from utils import (Binary,
-                   binToHex,
                    get_max_fitting_degree_of_two,
                    amount_of_chars_in_beginning)
 
@@ -12,17 +11,21 @@ WORDLISTS_DIR = 'wordlists'
 
 
 def to_passphrase(
-        hex_str: str,
+        input_str: str,
         wordlist_option: str = 'BIP39',
         verbose=False) -> str:
 
-    binary_str = bin(int(hex_str, 16))[2:]
+    ascii_codes = tuple(ord(char) for char in input_str)
+    ascii_bin_chunks = tuple(bin(code)[2:].rjust(8, '0')
+                             for code in ascii_codes)
+
+    binary_arr = ''.join(ascii_bin_chunks)
     wordlist = get_wordlist(wordlist_option)
     chunk_size: int = get_max_fitting_degree_of_two(len(wordlist))
 
     data_chunks = []
-    for i in range(0, len(binary_str), chunk_size):
-        chunk: str = binary_str[i:i+chunk_size]
+    for i in range(0, len(binary_arr), chunk_size):
+        chunk: str = binary_arr[i:i+chunk_size]
         data_chunks.append(chunk)
 
     data_chunks: Tuple[str] = tuple(data_chunks)
@@ -52,7 +55,7 @@ def to_passphrase(
         print(colored('-------->>>--------', 'yellow'))
         print('Wordlist:', wordlist_option)
         print(
-            f'{colored(hex_str, "blue")}\n-> {binary_str}\n-> {data_chunks}\n-> {binary_chunks_str}\n-> {integers}\n-> {colored(passphrase, "blue")}')
+            f'{colored(input_str, "blue")}\n-> {binary_arr}\n-> {data_chunks}\n-> {binary_chunks_str}\n-> {integers}\n-> {colored(passphrase, "blue")}')
         print(colored('--------<<<--------', 'yellow'))
 
     return passphrase
@@ -70,18 +73,33 @@ def from_passphrase(
     integers = [wordlist.index(word)
                 for word in words]
 
-    binary_chunks: Tuple[str] = tuple(Binary(i) for i in integers)
+    binary_chunks: Tuple[str] = tuple(
+        Binary(i).rjust(chunk_size, '0') for i in integers)
+
     control_chunk: str = binary_chunks[-1]
     zeroes_added: int = amount_of_chars_in_beginning(control_chunk, '1')
+
     data_chunks: tuple = binary_chunks[:-1]
-    last_chunk: str = data_chunks[-1].rjust(chunk_size, '0')
+
+    last_chunk: str = data_chunks[-1]
+
+    if zeroes_added > 0:
+        unpadded_last_chunk = last_chunk[:-zeroes_added]
+    else:
+        unpadded_last_chunk = last_chunk
+
     unpadded_data_chunks: tuple = \
-        data_chunks[:-1] + (last_chunk[:-zeroes_added],)
+        data_chunks[:-1] + (unpadded_last_chunk,)
+    assert len(unpadded_data_chunks) > 0
 
-    binary_str = ''.join(unpadded_data_chunks)
+    binary_arr = ''.join(unpadded_data_chunks)
 
-    hex_num = binToHex(binary_str)
-    hex_str = str(hex_num)[2:]
+    ascii_bin_chunks = tuple(binary_arr[i:i+8]
+                             for i
+                             in range(0, len(binary_arr), 8))
+    ascii_codes = tuple(int(chunk, 2) for chunk in ascii_bin_chunks)
+    chars = tuple(chr(code) for code in ascii_codes)
+    output = ''.join(chars)
 
     if verbose:
         binary_chunks_strings = []
@@ -95,10 +113,10 @@ def from_passphrase(
         print(colored('-------->>>--------', 'yellow'))
         print('Wordlist:', wordlist_option)
         print(
-            f'{colored(passphrase, "blue")}\n-> {integers}\n-> {binary_chunks_str}\n-> {unpadded_data_chunks_str}\n-> {colored(hex_str, "blue")}')
+            f'{colored(passphrase, "blue")}\n-> {integers}\n-> {binary_chunks_str}\n-> {unpadded_data_chunks_str}\n-> {colored(output, "blue")}')
         print(colored('--------<<<--------', 'yellow'))
 
-    return hex_str
+    return output
 
 
 def get_wordlist(wordlist_option: str = 'BIP39'):
