@@ -122,4 +122,6 @@ def from_passphrase(
 def get_wordlist(wordlist_option: str = 'BIP39'):
     path = os.path.join(WORDLISTS_DIR, wordlist_option)
     with open(path) as file:
-        return tuple(line.rstrip() for line in file)
+        return tuple(stripped_line for stripped_line
+                     in (line.strip() for line in file)
+                     if stripped_line != '')
