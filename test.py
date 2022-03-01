@@ -1,10 +1,9 @@
+import random
 from termcolor import colored
 
 from main import from_passphrase, to_passphrase
 
 WORDLIST_OPTIONS = ('BIP39', 'EFF')
-
-data = 'ab12'
 
 
 def main():
@@ -12,24 +11,40 @@ def main():
 
 
 def test_for_symmetry():
-    print('TESTING FOR SYMMETRY')
-    print('====================', end='\n\n')
+    for _ in range(50):
 
-    for i, wordlist_option in enumerate(WORDLIST_OPTIONS):
-        print(f'TEST {i} ===>')
-        passphrase = to_passphrase(data,
-                                   wordlist_option=wordlist_option,
-                                   verbose=True)
+        test_data = get_random_hex_str()
 
-        recovered = from_passphrase(passphrase,
-                                    wordlist_option=wordlist_option,
-                                    verbose=True)
+        print('TESTING FOR SYMMETRY')
+        print('====================', end='\n\n')
 
-        assert recovered == data, colored(
-            f'Should have recovered: {data}', 'red')
-        print(f'<=== TEST {i} PASSED', end='\n\n')
+        for i, wordlist_option in enumerate(WORDLIST_OPTIONS):
+            print(f'TEST {i} ===>')
+            passphrase = to_passphrase(test_data,
+                                       wordlist_option=wordlist_option,
+                                       verbose=True)
 
-    print(colored('HOORRAY! SYMMETRY IS PRESERVED.', 'green'))
+            recovered = from_passphrase(passphrase,
+                                        wordlist_option=wordlist_option,
+                                        verbose=True)
+
+            assert recovered == test_data, colored(
+                f'Should have recovered: {test_data}', 'red')
+            print(f'<=== TEST {i} PASSED', end='\n\n')
+
+        print(colored('HOORRAY! SYMMETRY IS PRESERVED.', 'green'))
+
+
+def get_random_hex_str():
+    length = random.randint(1, 80)
+    chars = '0123456789abcdef'
+
+    arr = []
+    for _ in range(length):
+        random_char = random.choice(chars)
+        arr.append(random_char)
+
+    return ''.join(arr)
 
 
 if __name__ == '__main__':
