@@ -12,14 +12,23 @@ WORDLISTS_DIR = 'wordlists'
 
 def to_passphrase(
         input_str: str,
+        mode: str,
         wordlist_option: str = 'BIP39',
         verbose=False) -> str:
 
-    ascii_codes = tuple(ord(char) for char in input_str)
-    ascii_bin_chunks = tuple(bin(code)[2:].rjust(8, '0')
-                             for code in ascii_codes)
+    assert mode in ('ascii', 'hex')
 
-    binary_arr = ''.join(ascii_bin_chunks)
+    if mode == 'ascii':
+        ascii_codes = tuple(ord(char) for char in input_str)
+        bin_chunks = tuple(bin(code)[2:].rjust(8, '0')
+                           for code in ascii_codes)
+    elif mode == 'hex':
+        bin_chunks = tuple(
+            bin(int(char, 16))[2:].rjust(4, '0')
+            for char in input_str
+        )
+
+    binary_arr = ''.join(bin_chunks)
     wordlist = get_wordlist(wordlist_option)
     chunk_size: int = get_max_fitting_degree_of_two(len(wordlist))
 
@@ -63,8 +72,11 @@ def to_passphrase(
 
 def from_passphrase(
         passphrase: str,
+        mode: str,
         wordlist_option: str = 'BIP39',
         verbose=False) -> str:
+
+    assert mode in ('ascii', 'hex')
 
     words = passphrase.split()
     wordlist = get_wordlist(wordlist_option)
@@ -94,11 +106,19 @@ def from_passphrase(
 
     binary_arr = ''.join(unpadded_data_chunks)
 
-    ascii_bin_chunks = tuple(binary_arr[i:i+8]
-                             for i
-                             in range(0, len(binary_arr), 8))
-    ascii_codes = tuple(int(chunk, 2) for chunk in ascii_bin_chunks)
-    chars = tuple(chr(code) for code in ascii_codes)
+    if mode == 'ascii':
+        ascii_bin_chunks = tuple(binary_arr[i:i+8]
+                                 for i
+                                 in range(0, len(binary_arr), 8))
+        ascii_codes = tuple(int(chunk, 2) for chunk in ascii_bin_chunks)
+        chars = tuple(chr(code) for code in ascii_codes)
+    elif mode == 'hex':
+        hex_bin_chunks: Tuple[str] = tuple(binary_arr[i:i+4]
+                                           for i
+                                           in range(0, len(binary_arr), 4))
+        ints = tuple(int(chunk, 2) for chunk in hex_bin_chunks)
+        chars = tuple(hex(integer)[2:] for integer in ints)
+
     output = ''.join(chars)
 
     if verbose:

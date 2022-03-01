@@ -13,20 +13,26 @@ def main():
 
 
 def test_for_symmetry():
-    for _ in range(50):
+    for i in range(50):
 
-        test_data = get_random_str()
+        mode = ('ascii', 'hex')[i % 2]
+        if mode == 'ascii':
+            test_data = get_random_ascii_str()
+        elif mode == 'hex':
+            test_data = get_random_hex_str()
 
         print('TESTING FOR SYMMETRY')
         print('====================', end='\n\n')
 
-        for i, wordlist_option in enumerate(WORDLIST_OPTIONS):
-            print(f'TEST {i} ===>')
+        for j, wordlist_option in enumerate(WORDLIST_OPTIONS):
+            print(f'TEST {j+1} ===>')
             passphrase = to_passphrase(test_data,
+                                       mode=mode,
                                        wordlist_option=wordlist_option,
                                        verbose=True)
 
             recovered = from_passphrase(passphrase,
+                                        mode=mode,
                                         wordlist_option=wordlist_option,
                                         verbose=True)
 
@@ -41,9 +47,21 @@ def test_for_symmetry():
         print(colored('HOORRAY! SYMMETRY IS PRESERVED.', 'green'))
 
 
-def get_random_str():
+def get_random_ascii_str():
     length = random.randint(1, 100)
     chars = tuple(chr(i) for i in range(256))
+
+    arr = []
+    for _ in range(length):
+        random_char = random.choice(chars)
+        arr.append(random_char)
+
+    return ''.join(arr)
+
+
+def get_random_hex_str():
+    length = random.randint(1, 100)
+    chars = '0123456789abcdef'
 
     arr = []
     for _ in range(length):
