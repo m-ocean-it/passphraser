@@ -7,6 +7,7 @@ My initial motivation was to simplify putting codes, resulted from applying Sham
 Unique features:
 - Several built-in wordlists (and ability to define your own later).
 - Accepting input of arbitrary length. No upper limit, no requirement for an even number of characters.
+- Accepting not only hexadecimal values but also any ASCII strings (use `--mode ascii`).
 
 
 ## Usage
