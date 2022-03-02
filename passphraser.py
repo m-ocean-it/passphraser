@@ -3,12 +3,13 @@
 import argparse
 import sys
 
-from main import to_passphrase
+from lib import to_passphrase, from_passphrase
 
 
 def main():
     parser = argparse.ArgumentParser(description='description...')
     parser.add_argument('input', nargs='?', default=None)
+    parser.add_argument('-d', '--decrypt', action='store_true')
     parser.add_argument('-m', '--mode', default='hex',
                         help='specify how to parse input')
     parser.add_argument('-w', '--wordlist', default='bip39')
@@ -29,12 +30,18 @@ def main():
             print('[Error] No input provided.')
             sys.exit(1)
 
-    passphrase = to_passphrase(input_str,
+    if args.decrypt:
+        result = from_passphrase(input_str,
+                                 mode=args.mode,
+                                 wordlist_option=args.wordlist,
+                                 verbose=args.verbose)
+    else:
+        result = to_passphrase(input_str,
                                mode=args.mode,
                                wordlist_option=args.wordlist,
                                verbose=args.verbose)
 
-    print(f'[Result] {passphrase}', file=sys.stdout)
+    print(f'[Result] {result}', file=sys.stdout)
 
 
 def stdin_is_present():

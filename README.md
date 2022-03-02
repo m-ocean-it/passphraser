@@ -11,8 +11,17 @@ Unique features:
 - Make a long code more readable, communicable, and less error-prone by converting it to a passphrase.
 
 ## Usage
+```bash
+$ chmod +x ./passphraser.py
 
-- [ ] Something must be here! :)
+# Encrypt
+$ ./passphraser.py --mode hex --wordlist bip39 "afdea69732ce3e1fb46dc8"
+[Result] quit vivid place grain token average spider ribbon abandon
+
+# Decrypt
+$ ./passphraser.py -d --mode hex --wordlist bip39 "quit vivid place grain token average spider ribbon abandon"
+[Result] afdea69732ce3e1fb46dc8
+```
 
 
 ## How does it work?
