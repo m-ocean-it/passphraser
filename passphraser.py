@@ -7,11 +7,13 @@ from lib import to_passphrase, from_passphrase
 
 
 def main():
-    parser = argparse.ArgumentParser(description='description...')
-    parser.add_argument('input', nargs='?', default=None)
+    parser = argparse.ArgumentParser(
+        description='Convert any data to a passphrase and back.')
+    parser.add_argument('input', nargs='?', default=None,
+                        help='Value to encode. Could be read from standard input.')
     parser.add_argument('-d', '--decrypt', action='store_true')
     parser.add_argument('-m', '--mode', default='hex',
-                        help='specify how to parse input')
+                        help='Specify how to parse input. Hexadecimal and ASCII modes are available.')
     parser.add_argument('-w', '--wordlist', default='bip39')
     parser.add_argument('-v', '--verbose', action='store_true')
 
@@ -21,7 +23,7 @@ def main():
     if args.input:
         input_str = args.input
         if stdin_present:
-            print('[Warning] Ignoring stdin since argument was provided.')
+            print('[Warning] Ignoring standard input since argument was provided.')
     else:
         if not stdin_present:
             print('Enter the value:')

@@ -1,16 +1,17 @@
 # Passphraser
 
-Convert any data to a passphrase and back.
+*Convert any data to a passphrase and back.*
+
+My initial motivation was to simplify putting codes, resulted from applying Shamir Secret Sharing Scheme to my secret, on paper. I used the `ssss` utility to get the codes. The problem was that it spit out long hexadecimal values that are not easy to write down. QR encoding and printing them was not an option since I didn't want the secret (even in its Shamir-split form) to leave the memory of the machine (running Tails OS) and I wasn't at all confident that using a printer would be safe. So I decided the best way was to encode those hex values as passphrases and carefully write them down. That's how this repo came to life. Welcome!
 
 Unique features:
 - Several built-in wordlists (and ability to define your own later).
 - Accepting input of arbitrary length. No upper limit, no requirement for an even number of characters.
 
-## Use cases
-
-- Make a long code more readable, communicable, and less error-prone by converting it to a passphrase.
 
 ## Usage
+> Use the --help flag.
+
 ```bash
 $ chmod +x ./passphraser.py
 
