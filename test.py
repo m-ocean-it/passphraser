@@ -1,3 +1,4 @@
+import os
 import random
 from termcolor import colored
 
@@ -5,7 +6,8 @@ from lib import from_passphrase, to_passphrase
 
 TEST_LOG_PATH = 'test.log'
 
-WORDLIST_OPTIONS = ('bip39', 'eff', 'norvig')
+WORDLISTS_DIR = 'wordlists'
+WORDLIST_OPTIONS = os.listdir(WORDLISTS_DIR)
 
 
 def main():
