@@ -1,4 +1,5 @@
 import os
+import sys
 from termcolor import colored
 from typing import Tuple
 
@@ -25,10 +26,16 @@ def to_passphrase(
         bin_chunks = tuple(bin(code)[2:].rjust(8, '0')
                            for code in ascii_codes)
     elif mode == 'hex':
-        bin_chunks = tuple(
-            bin(int(char, 16))[2:].rjust(4, '0')
-            for char in input_str
-        )
+        bin_chunks = []
+        for char in input_str:
+            try:
+                i = int(char, 16)
+            except ValueError:
+                print('[Error] Wrong hexadecimal value.')
+                sys.exit(1)
+            bin_chunk = bin(i)[2:].rjust(4, '0')
+            bin_chunks.append(bin_chunk)
+        bin_chunks = tuple(bin_chunks)
 
     binary_arr = ''.join(bin_chunks)
     wordlist = get_wordlist(wordlist_option)
