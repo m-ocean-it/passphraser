@@ -13,7 +13,7 @@ def main():
                         help='Value to encode. Could be read from standard input.')
     parser.add_argument('-d', '--decrypt', action='store_true')
     parser.add_argument('-m', '--mode', default='hex',
-                        help='Specify how to parse input. Hexadecimal and ASCII modes are available.')
+                        help='Specify how to parse input. Possible values: hex, ascii.')
     parser.add_argument('-w', '--wordlist', default='bip39')
     parser.add_argument('-v', '--verbose', action='store_true')
 
