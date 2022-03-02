@@ -39,7 +39,7 @@ def test_for_symmetry():
                                         verbose=True)
 
             error_msg = f'Should have recovered:\n{test_data}\ninstead of\n{recovered}\n'
-            if recovered != test_data:
+            if recovered != test_data.strip():
                 with open(TEST_LOG_PATH, 'a') as f:
                     f.write(f'{error_msg}\n')
                 raise AssertionError(
