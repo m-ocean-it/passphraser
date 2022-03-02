@@ -15,7 +15,8 @@ def main():
 
 
 def test_for_symmetry():
-    for i in range(50):
+    number_of_tests = 50
+    for i in range(number_of_tests):
 
         mode = ('ascii', 'hex')[i % 2]
         if mode == 'ascii':
@@ -44,7 +45,7 @@ def test_for_symmetry():
                     f.write(f'{error_msg}\n')
                 raise AssertionError(
                     f'\n\n{error_msg}\nLogged to {TEST_LOG_PATH}')
-            print(f'<=== TEST {i} PASSED', end='\n\n')
+            print(f'<=== TEST {i+1}/{number_of_tests} PASSED', end='\n\n')
 
         print(colored('HOORRAY! SYMMETRY IS PRESERVED.', 'green'))
 
