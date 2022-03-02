@@ -4,7 +4,7 @@ from termcolor import colored
 from typing import Tuple
 
 from utils import (Binary,
-                   get_max_fitting_degree_of_two,
+                   get_max_fitting_power_of_two,
                    amount_of_chars_in_beginning)
 
 
@@ -39,7 +39,7 @@ def to_passphrase(
 
     binary_arr = ''.join(bin_chunks)
     wordlist = get_wordlist(wordlist_option)
-    chunk_size: int = get_max_fitting_degree_of_two(len(wordlist))
+    chunk_size: int = get_max_fitting_power_of_two(len(wordlist))
 
     data_chunks = []
     for i in range(0, len(binary_arr), chunk_size):
@@ -89,7 +89,7 @@ def from_passphrase(
 
     words = passphrase.split()
     wordlist = get_wordlist(wordlist_option)
-    chunk_size = get_max_fitting_degree_of_two(len(wordlist))
+    chunk_size = get_max_fitting_power_of_two(len(wordlist))
 
     integers = []
     for word in words:

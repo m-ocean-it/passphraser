@@ -1,7 +1,7 @@
 import random
 from termcolor import colored
 
-from main import from_passphrase, to_passphrase
+from lib import from_passphrase, to_passphrase
 
 TEST_LOG_PATH = 'test.log'
 
