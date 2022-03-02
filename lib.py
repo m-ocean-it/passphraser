@@ -91,8 +91,16 @@ def from_passphrase(
     wordlist = get_wordlist(wordlist_option)
     chunk_size = get_max_fitting_degree_of_two(len(wordlist))
 
-    integers = [wordlist.index(word)
-                for word in words]
+    integers = []
+    for word in words:
+        try:
+            i = wordlist.index(word)
+        except ValueError:
+            print(
+                f'[ERROR] No word "{word}" in the wordlist "{wordlist_option}".')
+            sys.exit(1)
+        integers.append(i)
+    integers = tuple(integers)
 
     binary_chunks: Tuple[str] = tuple(
         Binary(i).rjust(chunk_size, '0') for i in integers)
