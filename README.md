@@ -43,7 +43,6 @@ Decoding the passphrase back to the original value is done in reverse.
 ## TODO
 ### Now
 
-- [ ] Add input modes: "hex", "bin", "str". Currently only hex input is supported.
 - [ ] Add optional numbered output like this:
 ```
 1.  19      across
@@ -54,6 +53,5 @@ Decoding the passphrase back to the original value is done in reverse.
 
 ### Later
 - [ ] Allow user-defined wordlists
-- [ ] Add CLI
 - [ ] Package for PyPI
 - [ ] Compile to standalone executables
