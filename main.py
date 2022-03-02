@@ -13,7 +13,7 @@ WORDLISTS_DIR = 'wordlists'
 def to_passphrase(
         input_str: str,
         mode: str,
-        wordlist_option: str = 'BIP39',
+        wordlist_option: str = 'bip39',
         verbose=False) -> str:
 
     assert mode in ('ascii', 'hex')
@@ -75,7 +75,7 @@ def to_passphrase(
 def from_passphrase(
         passphrase: str,
         mode: str,
-        wordlist_option: str = 'BIP39',
+        wordlist_option: str = 'bip39',
         verbose=False) -> str:
 
     assert mode in ('ascii', 'hex')
@@ -141,7 +141,7 @@ def from_passphrase(
     return output
 
 
-def get_wordlist(wordlist_option: str = 'BIP39'):
+def get_wordlist(wordlist_option: str = 'bip39'):
     path = os.path.join(WORDLISTS_DIR, wordlist_option)
     with open(path) as file:
         return tuple(stripped_line for stripped_line
