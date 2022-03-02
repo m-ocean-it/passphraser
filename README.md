@@ -18,7 +18,7 @@ $ chmod +x ./passphraser.py
 $ ./passphraser.py --mode hex --wordlist bip39 "afdea69732ce3e1fb46dc8"
 [Result] quit vivid place grain token average spider ribbon abandon
 
-# Decrypt
+# Decrypt (use -d flag)
 $ ./passphraser.py -d --mode hex --wordlist bip39 "quit vivid place grain token average spider ribbon abandon"
 [Result] afdea69732ce3e1fb46dc8
 ```
