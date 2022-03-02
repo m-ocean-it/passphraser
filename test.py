@@ -5,7 +5,7 @@ from lib import from_passphrase, to_passphrase
 
 TEST_LOG_PATH = 'test.log'
 
-WORDLIST_OPTIONS = ('BIP39', 'EFF', 'Norvig')
+WORDLIST_OPTIONS = ('bip39', 'eff', 'norvig')
 
 
 def main():
