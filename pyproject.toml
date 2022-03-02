@@ -8,6 +8,7 @@ authors = ["Maxim Motyshen <m.motyshen@gmail.com>"]
 python = ">=3.9,<3.11"
 pyinstaller = "^4.9"
 termcolor = "^1.1.0"
+argparse = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.12.2"
