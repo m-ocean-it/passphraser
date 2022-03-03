@@ -1,6 +1,6 @@
 # Passphraser
 
-*Convert any data to a passphrase and back.*
+*Encode any data as a passphrase and decode it back.*
 
 My initial motivation was to simplify putting codes, resulted from applying Shamir Secret Sharing Scheme to my secret, on paper. I used the `ssss` utility to get the codes. The problem was that it spit out long hexadecimal values that are not easy to write down. QR encoding and printing them was not an option since I didn't want the secret (even in its Shamir-split form) to leave the memory of the machine (running Tails OS) and I wasn't at all confident that using a printer would be safe. So I decided the best way was to encode those hex values as passphrases and carefully write them down. That's how this repo came to life. Welcome!
 
@@ -16,11 +16,11 @@ Unique features:
 ```bash
 $ chmod +x ./passphraser.py
 
-# Encrypt
+# Encode:
 $ ./passphraser.py --mode hex --wordlist bip39 "afdea69732ce3e1fb46dc8"
 [Result] quit vivid place grain token average spider ribbon abandon
 
-# Decrypt (use the -d flag)
+# Decode: (use the -d flag)
 $ ./passphraser.py -d --mode hex --wordlist bip39 "quit vivid place grain token average spider ribbon abandon"
 [Result] afdea69732ce3e1fb46dc8
 ```
@@ -36,7 +36,7 @@ $ ./passphraser.py -d --mode hex --wordlist bip39 "quit vivid place grain token 
 - Chop that array to chunks of length `k`: `10101011000 10010`. (Here, `k=11`. The last chunk may be shorter if there's not enough bits. That gets fixed next.)
 - Pad the last chunk with zeroes if needed: `10101011000 10010000000`. Chunks must be of same size.
 - Add helper-chunk to remember the amount of padding. Result: `10101011000 10010000000 [11111100000]`. (6 ones in the helper-chunk represent 6 zeroes added to the last chunk for padding.)
-- Convert each chunk to a decimal integer: `1368 1152 2016`.
+- Decode each chunk to a decimal integer: `1368 1152 2016`.
 - Fetch words with corresponding indices from the wordlist: `prison mosquito winter`. (The last word encodes the helper-chunk and, thus, stores information about padding.)
 
 Decoding the passphrase back to the original value is done in reverse.

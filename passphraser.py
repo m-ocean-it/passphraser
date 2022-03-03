@@ -8,10 +8,10 @@ from lib import to_passphrase, from_passphrase
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Convert any data to a passphrase and back.')
+        description='Encode any data as a passphrase and decode it back.')
     parser.add_argument('input', nargs='?', default=None,
                         help='Value to encode. Could be read from standard input.')
-    parser.add_argument('-d', '--decrypt', action='store_true')
+    parser.add_argument('-d', '--decode', action='store_true')
     parser.add_argument('-m', '--mode', default='hex',
                         help='Specify how to parse input. Possible values: hex, ascii.')
     parser.add_argument('-w', '--wordlist', default='bip39')
