@@ -54,6 +54,7 @@ Decoding the passphrase back to the original value is done in reverse.
 ```
 
 ### Later
+- [ ] Add test for CLI (`passphrase.py`)
 - [ ] Allow user-defined wordlists
 - [ ] Package for PyPI
 - [ ] Compile to standalone executables
