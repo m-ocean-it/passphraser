@@ -159,6 +159,11 @@ def from_passphrase(
 def get_wordlist(wordlist_option: str = 'bip39'):
     path = os.path.join(WORDLISTS_DIR, wordlist_option)
     with open(path) as file:
-        return tuple(stripped_line for stripped_line
-                     in (line.strip() for line in file)
-                     if stripped_line != '')
+        words = tuple(stripped_line for stripped_line
+                      in (line.strip() for line in file)
+                      if stripped_line != '')
+
+        assert len(words) == len(set(words)), \
+            'Wordlist contains non-unique words!'
+
+        return words
