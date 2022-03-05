@@ -41,22 +41,24 @@ def split(string_to_split,
 
     print()
     for hex_share in hex_shares:
-        print(hex_share)
-        passphrase = to_passphrase(hex_share,
-                                   mode='ascii',
+        index, trimmed_hex_share = hex_share.split('-')[-2:]
+
+        passphrase = to_passphrase(trimmed_hex_share,
+                                   mode='hex',
                                    wordlist_option='bip39')
-        print(passphrase)
+
+        print(f'{index} {passphrase}')
         print()
 
 
 def combine():
     phrases = []
     while True:
-        phrase = input(
+        indexed_phrase = input(
             colored('Enter phrase (leave blank to continue): ', 'blue'))
-        if phrase.strip() == '':
+        if indexed_phrase.strip() == '':
             break
-        phrases.append(phrase)
+        phrases.append(indexed_phrase)
     print()
     number_of_shares = int(input(colored('Number of total shares: ', 'blue')))
     print(
@@ -64,12 +66,16 @@ def combine():
                 'blue'))
     print()
 
-    hex_shares = []
-    for phrase in phrases:
-        hex_share = from_passphrase(phrase.strip(),
-                                    mode='ascii',
-                                    wordlist_option='bip39')
-        hex_shares.append(hex_share)
+    for indexed_phrase in phrases:
+        indexed_phrase_parts = indexed_phrase.split()
+        index = indexed_phrase_parts[0]
+        phrase = ' '.join(indexed_phrase_parts[1:])
+
+        hex_share_not_indexed = from_passphrase(phrase.strip(),
+                                                mode='hex',
+                                                wordlist_option='bip39')
+        hex_share = '-'.join((index, hex_share_not_indexed))
+
         print(hex_share)
     print()
 
