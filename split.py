@@ -16,8 +16,12 @@ from passphraser import to_passphrase, from_passphrase
 def main():
     direction = input(colored('split(s) / combine(c): ', 'blue'))
     if direction in ('s', 'split'):
+        number_of_shares = int(input(colored('Number of shares: ', 'blue')))
+        threshold = int(input(colored('Threshold: ', 'blue')))
         string_to_split = input(colored('Enter data:\n', 'blue'))
-        split(string_to_split)
+        split(string_to_split,
+              number_of_shares=number_of_shares,
+              threshold=threshold)
     elif direction in ('c', 'combine'):
         combine()
     else:
@@ -25,10 +29,12 @@ def main():
         sys.exit(1)
 
 
-def split(string_to_split):
+def split(string_to_split,
+          number_of_shares,
+          threshold):
 
     output = subprocess.check_output(
-        f'echo "{string_to_split}" | ssss-split -t 3 -n 5',
+        f'echo "{string_to_split}" | ssss-split -t {threshold} -n {number_of_shares}',
         shell=True).decode()
     lines = output.split('\n')
     hex_shares = lines[1:-1]
