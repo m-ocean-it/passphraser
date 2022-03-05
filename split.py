@@ -47,8 +47,11 @@ def split(string_to_split,
                                    mode='hex',
                                    wordlist_option='bip39')
 
+        passphrase_len = len(passphrase.split())
         print(f'{index} {passphrase}')
         print()
+
+    print(f'(Each phrase has {passphrase_len} words.)', end='\n\n')
 
 
 def combine():
